@@ -1,10 +1,21 @@
 name: install-netlify-package
+
 on: [push]
+
 jobs:
   check-netlify-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-      - run: npm install netlify-cli -g
-      - run: npm netlify -v
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Latest Node.js LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Check Netlify CLI Version
+        run: netlify -v
